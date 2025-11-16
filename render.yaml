@@ -1,0 +1,11 @@
+services:
+  - name: telegram-turbo-bot
+    type: worker
+    env: docker
+    plan: free
+
+    dockerfilePath: ./Dockerfile
+    buildCommand: ./render-build.sh
+    startCommand: python app/main.py
+
+    autoDeploy: true

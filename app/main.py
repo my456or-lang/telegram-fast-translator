@@ -1,8 +1,9 @@
 import asyncio
+import os
 from telegram.ext import Application, MessageHandler, filters
 from process_audio import process_voice
 
-TOKEN = "YOUR_TELEGRAM_BOT_TOKEN"
+TOKEN = os.getenv("BOT_TOKEN")  # from Render ENV
 
 async def handle_voice(update, context):
     file = await update.message.voice.get_file()

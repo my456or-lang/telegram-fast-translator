@@ -1,14 +1,21 @@
 FROM python:3.10-slim
 
-# Install performance libs
+# Install system dependencies including ffmpeg
 RUN apt-get update && apt-get install -y ffmpeg && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
+# Set working directory
 WORKDIR /app
 
-COPY requirements.txt requirements.txt
+# Copy requirements and install
+COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
+# Copy the entire project
 COPY . .
 
-CMD ["python", "app/main.py"]
+# Expose port for Render
+EXPOSE 10000
+
+# Start command
+CMD ["python", "app.py"]
